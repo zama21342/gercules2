@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пекарня «Хурмет» — вкус с традицией</title>
+	<link rel="icon" type="image/png" href="logo.png">
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #f7b731;
+            --gold-light: #fcd48c;
+            --brown-deep: #4a2c1b;
+            --brown-soft: #8b5a2b;
+            --cream: #fff7e8;
+            --cream-dark: #fae4c0;
+            --red-brick: #c73e3a;
+            --shadow-sm: 0 10px 30px -10px rgba(0,0,0,0.15);
+            --shadow-hover: 0 25px 40px -12px rgba(0,0,0,0.25);
+            --transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--cream);
+            color: #2c1e12;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* ----- Хедер ----- */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 250, 240, 0.92);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(92, 52, 22, 0.08);
+            border-bottom: 1px solid rgba(247, 183, 49, 0.3);
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(145deg, var(--gold), #e6a01e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 14px rgba(247, 183, 49, 0.35);
+        }
+
+        .logo-icon i {
+            font-size: 2rem;
+            color: #3d281a;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.1));
+        }
+
+        .logo h1 {
+            font-size: 1.9rem;
+            color: var(--brown-deep);
+            line-height: 1.1;
+        }
+
+        .logo span {
+            color: var(--red-brick);
+            background: linear-gradient(135deg, #c73e3a, #a12f2b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--brown-deep);
+            position: relative;
+            padding: 6px 0;
+            transition: var(--transition);
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2.5px;
+            background: linear-gradient(90deg, var(--gold), var(--red-brick));
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::before {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--red-brick);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .phone {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(247, 183, 49, 0.18);
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: var(--brown-deep);
+            border: 1px solid rgba(247, 183, 49, 0.5);
+            transition: var(--transition);
+        }
+
+        .phone:hover {
+            background: var(--gold);
+            border-color: var(--brown-soft);
+            transform: scale(1.02);
+        }
+
+        .cart-icon {
+            font-size: 1.6rem;
+            color: var(--brown-deep);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--red-brick);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(199, 62, 58, 0.4);
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .cart-icon:hover {
+            color: var(--red-brick);
+            transform: rotate(5deg);
+        }
+
+        /* ----- Hero section ----- */
+        .hero {
+            margin-top: 86px;
+            background: linear-gradient(115deg, #2d1c0e 0%, #553b20 50%, #2d1c0e 100%), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center 30%;
+            background-blend-mode: overlay;
+            padding: 140px 0 140px;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(247, 183, 49, 0.25), transparent 60%);
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            text-shadow: 0 4px 18px rgba(0,0,0,0.5);
+        }
+
+        .hero h2 {
+            font-size: 4.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            animation: fadeUp 1s ease;
+        }
+	
+		
+
+        .hero p {
+            font-size: 1.35rem;
+            max-width: 750px;
+            margin: 0 auto 40px;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(3px);
+            padding: 16px 35px;
+            border-radius: 80px;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,200,0.25);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(145deg, var(--gold), #f0b22b);
+            color: #2d1e0e;
+            border: none;
+            padding: 16px 42px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 15px 25px -10px #b5721e;
+            transition: var(--transition);
+            text-decoration: none;
+            border: 1px solid rgba(255,215,120,0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+        }
+
+        .btn:hover {
+            background: linear-gradient(145deg, var(--red-brick), #ac2f2b);
+            color: white;
+            transform: translateY(-6px);
+            box-shadow: 0 28px 30px -12px #7e3d1b;
+            border-color: #c73e3a;
+        }
+
+        /* ----- Каталог ----- */
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin: 70px 0 40px;
+            color: var(--brown-deep);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "🥐";
+            font-size: 2rem;
+            display: block;
+            margin-top: 8px;
+            opacity: 0.8;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 35px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 36px 36px 30px 30px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(247, 183, 49, 0.3);
+        }
+
+        .product-card:hover {
+            transform: translateY(-18px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--gold);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.7s;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.07);
+        }
+
+        .product-info {
+            padding: 25px 20px 25px;
+        }
+
+        .product-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--brown-deep);
+        }
+
+        .product-info p {
+            color: #5f4d3a;
+            font-weight: 500;
+            margin-bottom: 18px;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--red-brick), #b33a36);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-card .btn {
+            padding: 12px 26px;
+            font-size: 1rem;
+            background: #fae4c0;
+            color: #3e281a;
+            box-shadow: none;
+            border: 1px solid var(--gold);
+        }
+
+        .product-card .btn:hover {
+            background: var(--gold);
+            color: #2b1b0e;
+        }
+
+        /* ----- О нас ----- */
+        .about {
+            background-color: #fdefdb;
+            padding: 80px 0;
+            margin: 50px 0;
+            border-radius: 80px 0 80px 0;
+            box-shadow: inset 0 -4px 20px rgba(110, 60, 20, 0.08);
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-img-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .about-img-grid img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 15px 15px 0 0 var(--gold);
+            transition: 0.4s;
+            border: 3px solid white;
+        }
+
+        .about-img-grid img:first-child {
+            transform: translateY(-20px);
+        }
+        .about-img-grid img:last-child {
+            box-shadow: -15px 15px 0 0 var(--red-brick);
+        }
+
+        .about-content h2 {
+            font-size: 3rem;
+            margin-bottom: 25px;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            border-left: 6px solid var(--gold);
+            padding-left: 25px;
+        }
+
+        /* ----- Преимущества ----- */
+        .advantages {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .advantage-card {
+            background: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 50px 20px 50px 20px;
+            box-shadow: var(--shadow-sm);
+            transition: 0.3s;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        .advantage-card:hover {
+            transform: scale(1.03);
+            border-bottom-color: var(--red-brick);
+        }
+
+        .advantage-icon {
+            font-size: 3.8rem;
+            color: var(--brown-soft);
+            margin-bottom: 20px;
+            transition: 0.2s;
+        }
+
+        .advantage-card:hover .advantage-icon {
+            color: var(--gold);
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%,100%{ transform: translateY(0); }
+            50%{ transform: translateY(-10px); }
+        }
+
+        /* ----- Контакты ----- */
+        .contact {
+            background: linear-gradient(125deg, #1f2a0f, #3b4f1d);
+            padding: 30px 0;
+            color: white;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+        }
+
+        .contact-info h2, .contact-form h2 {
+            font-size: 2.8rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            background: rgba(255,255,240,0.1);
+            padding: 18px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(4px);
+        }
+
+        .contact-icon {
+            font-size: 2.2rem;
+            color: var(--gold);
+        }
+
+        .contact-form form {
+            background: rgba(0,0,0,0.25);
+            backdrop-filter: blur(12px);
+            padding: 35px;
+            border-radius: 50px;
+            border: 1px solid var(--gold);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 18px 20px;
+            margin-bottom: 25px;
+            border: none;
+            border-radius: 40px;
+            background: #fcf6e7;
+            font-size: 1rem;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+            box-shadow: 0 0 0 5px rgba(247, 183, 49, 0.3);
+        }
+
+        .contact-form .btn {
+            background: white;
+            color: #2b4719;
+        }
+
+        /* ----- Footer ----- */
+        footer {
+    background: #2a1c0f;
+    color: #eeddcc;
+    padding: 60px 0 30px;
+    width: 250%;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr));
+    gap: 40px;
+    justify-content: stretch;
+}
+
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-column ul li {
+            list-style: none;
+            margin-bottom: 14px;
+        }
+
+        .footer-column a {
+            color: #f5dbb1;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--gold);
+            padding-left: 6px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .social-icons a {
+            background: #5f452b;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--gold);
+            color: #2a1c0f !important;
+            transform: rotate(8deg) scale(1.1);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 50px;
+            opacity: 0.7;
+            font-size: 0.95rem;
+        }
+
+        /* ----- Mobile menu ----- */
+        .menu-toggle {
+            display: none;
+            font-size: 2rem;
+            color: var(--brown-deep);
+            cursor: pointer;
+        }
+
+        @media (max-width: 1050px) {
+            nav ul { gap: 16px; }
+            .advantages { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 860px) {
+            .menu-toggle { display: block; }
+            nav { display: none; width: 100%; order: 3; margin-top: 15px; }
+            nav.active { display: block; }
+            nav ul { flex-direction: column; align-items: center; gap: 20px; padding: 20px 0; }
+            .header-container { flex-wrap: wrap; }
+            .about-container { grid-template-columns: 1fr; }
+            .contact-container { grid-template-columns: 1fr; }
+            .footer-container { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .advantages { grid-template-columns: 1fr; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+
+        /* ----- Модальное окно корзины ----- */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-modal.active {
+            display: flex;
+        }
+
+        .cart-content {
+            background: var(--cream);
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            border-radius: 50px;
+            padding: 30px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.5);
+            position: relative;
+            border: 3px solid var(--gold);
+            overflow-y: auto;
+        }
+
+        .close-cart {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--brown-deep);
+            transition: 0.2s;
+        }
+
+        .close-cart:hover {
+            color: var(--red-brick);
+            transform: scale(1.1);
+        }
+
+        .cart-content h2 {
+            font-size: 2.5rem;
+            color: var(--brown-deep);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+        }
+
+        .cart-items {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px dashed var(--brown-soft);
+        }
+
+        .cart-item-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+        }
+
+        .cart-item-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .cart-item-price {
+            color: var(--red-brick);
+            font-weight: 800;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gold-light);
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background: var(--gold);
+        }
+
+        .remove-item {
+            color: var(--red-brick);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .remove-item:hover {
+            transform: scale(1.2);
+        }
+
+        .cart-total {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--brown-deep);
+            text-align: right;
+            margin: 20px 0;
+            padding-top: 20px;
+            border-top: 3px solid var(--gold);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.3rem;
+            background: linear-gradient(145deg, var(--gold), #f0b22b);
+            border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .checkout-btn:hover {
+            background: linear-gradient(145deg, var(--red-brick), #ac2f2b);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.3rem;
+            color: var(--brown-soft);
+        }
+
+        /* ----- Анимации ----- */
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-card .btn i {
+            transition: 0.2s;
+        }
+        .product-card .btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Уведомление */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--brown-deep);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-hover);
+            z-index: 3000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            border-left: 8px solid var(--gold);
+        }
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+           <div class="logo">
+    <img src="logo.png" alt="Хурмет" style="height: 60px; width: auto;">
+    <h1>Хурмет <span></span></h1>
+</div>
+            <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
+         <nav id="mainNav">
+    <ul>
+        <li><a href="#home">Главная</a></li>
+        <li><a href="kategorii.html">Категории</a></li>
+        <li><a href="#products">Выпечка</a></li>
+        <li><a href="#about">О нас</a></li>
+        <li><a href="#advantages">Преимущества</a></li>
+        <li><a href="#contact">Контакты</a></li>
+    </ul>
+</nav>
+            <div class="header-actions">
+                <div class="phone"><i class="fas fa-phone-alt"></i> +7 (989) 783-72-99</div>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Самые тёплые булочки <br> в городе</h2>
+            <p><i class="fas fa-leaf" style="margin-right: 10px;"></i> Натуральная закваска, деревенские рецепты и аромат, от которого просыпается счастье</p>
+            <a href="#products" class="btn"><i class="fas fa-cookie-bite"></i> Хочу попробовать</a>
+        </div>
+    </section>
+
+    <section id="products">
+        <div class="container">
+            <h2 class="section-title">Свежайшая выпечка сегодня</h2>
+            <div class="products" id="productsContainer">
+                <!-- Товары будут загружаться через JS, но можно и статично, оставим как есть с data-атрибутами -->
+                <div class="product-card" data-id="1" data-name="Круассаны миндальные" data-price="149" data-image="krus.png">
+                    <img class="product-img" src="krus.png" alt="Круассаны">
+                    <div class="product-info">
+                        <h3>Круассаны миндальные</h3>
+                        <p>Хрустящие слои, миндальная начинка, карамелизированная корочка.</p>
+                        <div class="product-price">
+                            <span class="price">149 ₽</span>
+                            <button class="btn add-to-cart"><i class="fas fa-plus-circle"></i> В корзину</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-id="2" data-name="Синнабоны с корицей" data-price="210" data-image="sin.png">
+                    <img class="product-img" src="sin.png" alt="Булочки с корицей">
+                    <div class="product-info">
+                        <h3>Синнабоны с корицей</h3>
+                        <p>Нежные улитки с масляным кремом и корицей из Цейлона.</p>
+                        <div class="product-price">
+                            <span class="price">210 ₽</span>
+                            <button class="btn add-to-cart"><i class="fas fa-plus-circle"></i> В корзину</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-id="3" data-name="Яблочный пирог" data-price="390" data-image="yab.png">
+                    <img class="product-img" src="yab.png" alt="Пирог с яблоками">
+                    <div class="product-info">
+                        <h3>Яблочный пирог</h3>
+                        <p>Тонкое песочное тесто, карамелизированные яблоки, шапка меренги.</p>
+                        <div class="product-price">
+                            <span class="price">390 ₽</span>
+                            <button class="btn add-to-cart"><i class="fas fa-plus-circle"></i> В корзину</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-id="4" data-name="Ржаной бородинский" data-price="190" data-image="rzh.png">
+                    <img class="product-img" src="rzh.png" alt="Хлеб на закваске">
+                    <div class="product-info">
+                        <h3>Ржаной бородинский</h3>
+                        <p>Длительная ферментация, кориандр, солод — хлеб с душой.</p>
+                        <div class="product-price">
+                            <span class="price">190 ₽</span>
+                            <button class="btn add-to-cart"><i class="fas fa-plus-circle"></i> В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container about-container">
+            <div class="about-img-grid">
+                <img src="pek.png" alt="Пекарня">
+                <img src="pek2.png" alt="Пекарь за работой">
+            </div>
+            <div class="about-content">
+                <h2>История с ароматом детства</h2>
+                <p>Семейная пекарня «Любимая булочка» появилась в 2010 году из маленькой любви к настоящему хлебу. Мы не используем улучшители и заморозку — только живая закваска, отборное зерно и сливочное масло.</p>
+                <p>Каждое утро в 5 утра наша команда замешивает тесто, чтобы вы получили горячий круассан к завтраку. Более 2 миллионов булочек уже подалирили улыбки — теперь ваш черёд.</p>
+                <a href="#contact" class="btn" style="padding: 14px 38px;"><i class="fas fa-heart"></i> Заглянуть в гости</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="advantages">
+        <div class="container">
+            <h2 class="section-title">Почему мы печём лучше всех</h2>
+            <div class="advantages">
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-wheat-alt"></i></div>
+                    <h3>Отборное зерно</h3>
+                    <p>Пшеница от местных фермеров, никакой химии.</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-clock"></i></div>
+                    <h3>24 часа расстойки</h3>
+                    <p>Тесто вызревает медленно, чтобы раскрыть вкус.</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-award"></i></div>
+                    <h3>Рецепты прабабушек</h3>
+                    <p>Секретные записи из старых тетрадей.</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-temperature-high"></i></div>
+                    <h3>Дровяная печь</h3>
+                    <p>Равномерный жар и хрустящая корочка.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container contact-container">
+            <div class="contact-info">
+                <h2>Напишите нам <br> или приходите</h2>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-map-pin"></i></div>
+                    <div><h4>Пекарня на Курортной</h4>ул. Курортная ул., 64, Усть-Джегута</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div><h4>Для заказов</h4>+7 (989) 783-72-99 (c 8:00 до 21:00)</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div><h4>Эл. почта</h4>Hurmet@gmail.ru</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <div><h4>Ежедневно</h4>8:00 — 21:00, без выходных</div>
+                </div>
+            </div>
+           <!-- Контакты (ОДИН РАЗ) -->
+    <section class="contact" id="contact">
+        <div class="container contact-container">
+            <div class="contact-info">
+                <h2>Напишите нам <br> или приходите</h2>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-map-pin"></i></div>
+                    <div><h4>Пекарня на Курортной</h4>ул. Курортная ул., 64, Усть-Джегута</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div><h4>Для заказов</h4>+7 (989) 783-72-99 (c 8:00 до 21:00)</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div><h4>Эл. почта</h4>Hurmet@gmail.ru</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <div><h4>Ежедневно</h4>8:00 — 21:00, без выходных</div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2>Оставить отзыв или заявку</h2>
+                
+                <!-- Уведомление о статусе отправки -->
+                <div id="form-status" style="display:none; padding:15px; margin-bottom:20px; border-radius:10px; text-align:center;"></div>
+                
+                <!-- Форма с вашей ссылкой Formspree -->
+                <form id="contactForm" action="https://formspree.io/f/xbdanoek" method="POST">
+                    <!-- Скрытые поля для Formspree -->
+                    <input type="hidden" name="_subject" value="Новый отзыв с сайта пекарни Хурмет">
+                    <input type="hidden" name="_cc" value="wrestlingrush@gmail.com">
+                    <input type="hidden" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Ваше имя" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Ваш Email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Ваш телефон">
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea name="message" rows="5" placeholder="Ваш отзыв или вопрос" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="submit-btn"><i class="fab fa-telegram-plane"></i> Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер (ПОДВАЛ) - исправлен -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>Хурмет</h3>
+                    <p>Пекарня полного цикла: от зерна до хрустящей корочки. Работаем для вас больше 7 лет.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-column">
+    <h3>Навигация</h3>
+    <ul>
+        <li><a href="#home">Главная</a></li>
+        <li><a href="kategorii.html">Категории</a></li>
+        <li><a href="#products">Выпечка</a></li>
+        <li><a href="#about">О нас</a></li>
+        <li><a href="#advantages">Преимущества</a></li>
+        <li><a href="#contact">Контакты</a></li>
+    </ul>
+</div>
+               <div class="footer-column">
+    <h3>Категории</h3>
+    <ul>
+        <li><a href="kategorii.html?category=bread">Хлеб</a></li>
+        <li><a href="kategorii.html?category=buns">Сдоба</a></li>
+        <li><a href="kategorii.html?category=pies">Пироги</a></li>
+        <li><a href="kategorii.html?category=croissants">Круассаны</a></li>
+        <li><a href="kategorii.html?category=desserts">Десерты</a></li>
+    </ul>
+</div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> ул. Курортная, 64</li>
+                        <li><i class="fas fa-phone"></i> +7 (989) 783-72-99</li>
+                        <li><i class="fas fa-clock"></i> 8:00–21:00 ежедневно</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 Пекарня «Хурмет» — каждый день с ароматом счастья.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно корзины -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <span class="close-cart" id="closeCart">&times;</span>
+            <h2><i class="fas fa-shopping-basket"></i> Ваша корзина</h2>
+            <div id="cartItemsContainer">
+                <!-- Сюда будут вставляться товары -->
+                <div class="empty-cart">Корзина пуста, но это поправимо 🥐</div>
+            </div>
+            <div class="cart-total" id="cartTotal">Итого: 0 ₽</div>
+            <button class="checkout-btn" id="checkoutBtn"><i class="fas fa-credit-card"></i> Перейти к оплате</button>
+        </div>
+    </div>
+
+    <!-- Уведомление -->
+    <div class="notification" id="notification">Товар добавлен в корзину</div>
+
+    <!-- JavaScript -->
+    <script>
+        (function() {
+            // ---------- Корзина ----------
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            const cartIcon = document.getElementById('cartIcon');
+            const cartModal = document.getElementById('cartModal');
+            const closeCart = document.getElementById('closeCart');
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const cartTotal = document.getElementById('cartTotal');
+            const cartCount = document.getElementById('cartCount');
+            const notification = document.getElementById('notification');
+
+            function updateCartCount() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+
+            function renderCart() {
+                if (!cartItemsContainer) return;
+                
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<div class="empty-cart">Корзина пуста, но это поправимо 🥐</div>';
+                    cartTotal.textContent = 'Итого: 0 ₽';
+                    updateCartCount();
+                    return;
+                }
+
+                let html = '<ul class="cart-items">';
+                let total = 0;
+
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    html += `
+                        <li class="cart-item">
+                            <div class="cart-item-info">
+                                <img src="${item.image}" class="cart-item-img" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60'">
+                                <div>
+                                    <div class="cart-item-title">${item.name}</div>
+                                    <div class="cart-item-price">${item.price} ₽</div>
+                                </div>
+                            </div>
+                            <div class="cart-item-actions">
+                                <div class="cart-item-quantity">
+                                    <button class="quantity-btn" data-index="${index}" data-action="decr">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button class="quantity-btn" data-index="${index}" data-action="incr">+</button>
+                                </div>
+                                <i class="fas fa-trash-alt remove-item" data-index="${index}" title="Удалить"></i>
+                            </div>
+                        </li>
+                    `;
+                });
+
+                html += '</ul>';
+                cartItemsContainer.innerHTML = html;
+                cartTotal.textContent = `Итого: ${total} ₽`;
+                updateCartCount();
+
+                document.querySelectorAll('.quantity-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const index = this.dataset.index;
+                        const action = this.dataset.action;
+                        if (action === 'incr') {
+                            cart[index].quantity += 1;
+                        } else if (action === 'decr') {
+                            if (cart[index].quantity > 1) {
+                                cart[index].quantity -= 1;
+                            } else {
+                                cart.splice(index, 1);
+                            }
+                        }
+                        renderCart();
+                    });
+                });
+
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const index = this.dataset.index;
+                        cart.splice(index, 1);
+                        renderCart();
+                    });
+                });
+            }
+
+            function addToCart(product) {
+                const existing = cart.find(item => item.id === product.id);
+                if (existing) {
+                    existing.quantity += 1;
+                } else {
+                    cart.push({ ...product, quantity: 1 });
+                }
+                renderCart();
+                
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 2000);
+            }
+
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const card = this.closest('.product-card');
+                    if (!card) return;
+                    
+                    const id = card.dataset.id;
+                    const name = card.dataset.name;
+                    const price = parseInt(card.dataset.price);
+                    const image = card.dataset.image || 'krus.png';
+                    
+                    addToCart({ id, name, price, image });
+                });
+            });
+
+            cartIcon.addEventListener('click', function() {
+                renderCart();
+                cartModal.classList.add('active');
+            });
+
+            closeCart.addEventListener('click', function() {
+                cartModal.classList.remove('active');
+            });
+
+            cartModal.addEventListener('click', function(e) {
+                if (e.target === cartModal) {
+                    cartModal.classList.remove('active');
+                }
+            });
+
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('Корзина пуста! Добавьте товары');
+                    return;
+                }
+                const phone = '79897837299'; // номер без +
+                let message = 'Здравствуйте! Хочу заказать:\n';
+                cart.forEach(item => {
+                    message += `- ${item.name} (${item.quantity} шт.) — ${item.price * item.quantity} ₽\n`;
+                });
+                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                message += `\nИтого: ${total} ₽`;
+                
+                window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+                
+                cart = [];
+                renderCart();
+                cartModal.classList.remove('active');
+                alert('Спасибо! Сейчас вы будете перенаправлены в WhatsApp для подтверждения заказа.');
+            });
+
+            updateCartCount();
+
+            // ---------- Мобильное меню ----------
+            const menuToggle = document.getElementById('menuToggle');
+            const mainNav = document.getElementById('mainNav');
+            menuToggle.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+                menuToggle.innerHTML = mainNav.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (!target) return;
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                    window.scrollTo({ top: target.offsetTop - 90, behavior: 'smooth' });
+                });
+            });
+
+            // ---------- Formspree форма (исправленная) ----------
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const form = e.target;
+                    const formData = new FormData(form);
+                    const statusDiv = document.getElementById('form-status');
+                    const submitBtn = document.getElementById('submit-btn');
+                    
+                    statusDiv.style.display = 'block';
+                    statusDiv.style.backgroundColor = '#f0f0f0';
+                    statusDiv.style.color = '#333';
+                    statusDiv.textContent = 'Отправка...';
+                    submitBtn.disabled = true;
+                    
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            statusDiv.style.backgroundColor = '#d4edda';
+                            statusDiv.style.color = '#155724';
+                            statusDiv.textContent = '✅ Спасибо! Ваше сообщение отправлено.';
+                            form.reset();
+                        } else {
+                            const data = await response.json();
+                            throw new Error(data.error || 'Ошибка отправки');
+                        }
+                    } catch (error) {
+                        statusDiv.style.backgroundColor = '#f8d7da';
+                        statusDiv.style.color = '#721c24';
+                        statusDiv.textContent = '❌ Ошибка: ' + error.message;
+                    } finally {
+                        submitBtn.disabled = false;
+                        setTimeout(() => {
+                            statusDiv.style.display = 'none';
+                        }, 5000);
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
